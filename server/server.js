@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const { MongoClient } = require('mongodb');
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 
 let db;
 
@@ -29,6 +30,8 @@ const rateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+app.use(cors());
 
 app.get('/lorcana/random-card', rateLimiter, async (req, res) => {
   try {
