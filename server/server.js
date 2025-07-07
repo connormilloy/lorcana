@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 3000;
 const { MongoClient } = require('mongodb');
+const rateLimit = require('express-rate-limit');
 
 let db;
 
@@ -19,7 +20,17 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING)
     process.exit(1);
   });
 
-app.get('/lorcana/random-card', async (req, res) => {
+const rateLimiter = rateLimit({
+  windowMs: 2000,
+  max: 1,
+  message: {
+    error: 'Too many requests, please wait before trying again.',
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.get('/lorcana/random-card', rateLimiter, async (req, res) => {
   try {
     const card = await db
       .collection('lorcana-cards')
@@ -28,6 +39,6 @@ app.get('/lorcana/random-card', async (req, res) => {
     res.json(card);
   } catch (err) {
     console.error('Failed to fetch random card:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Internal server error.' });
   }
 });
