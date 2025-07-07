@@ -19,7 +19,7 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING)
     process.exit(1);
   });
 
-app.get('/api/lorcana/random-card', async (req, res) => {
+app.get('/lorcana/random-card', async (req, res) => {
   try {
     const card = await db
       .collection('lorcana-cards')
