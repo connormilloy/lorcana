@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createDelay } from '../utils/functions';
 
 const useRandomCard = () => {
   const [card, setCard] = useState(null);
@@ -10,9 +11,12 @@ const useRandomCard = () => {
       setLoading(true);
       setError(null);
       try {
+        await createDelay(1000);
+
         const response = await fetch(
           'https://milloy.dev/api/lorcana/random-card'
         );
+
         if (!response.ok) {
           throw new Error(`HTTP error: ${response.status}`);
         }

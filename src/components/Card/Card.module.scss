@@ -1,3 +1,10 @@
 .Card {
-  width: 275px;
+  @media (max-width: 375px) {
+    width: 60% !important;
+    height: 60% !important;
+  }
+}
+
+.GameWrapper {
+  margin-top: 2rem;
 }

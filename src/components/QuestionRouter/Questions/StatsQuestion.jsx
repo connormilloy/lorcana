@@ -1,4 +1,7 @@
+import STYLES from './styles/NumericalQuestion.module.scss';
+import GENERIC from './styles/Generic.module.scss';
 import { useState, useMemo } from 'react';
+
 const StatsQuestion = ({ stats, handleAnswerQuestion }) => {
   const isStrengthQuestion = Math.random() < 0.5;
 
@@ -14,18 +17,24 @@ const StatsQuestion = ({ stats, handleAnswerQuestion }) => {
   };
 
   return (
-    <div className="StatsQuestion">
-      <h2>What is the {statType} of this card?</h2>
-      <div className="AnswerOptions">
+    <div className={STYLES.NumericalQuestion}>
+      <h2>
+        What's the <span className={GENERIC.Highlight}>{statType}</span> of this
+        card?
+      </h2>
+      <div className={STYLES.NumericalQuestion__AnswerOptions}>
         <input
-          type="number"
+          type="text"
           value={guess}
           onChange={(e) => setGuess(Number(e.target.value))}
-          className="AnswerInput"
+          className={STYLES.NumericalQuestion__AnswerInput}
           placeholder={`Enter ${statType} guess`}
         />
-        <button className="AnswerButton" onClick={() => handleGuess(guess)}>
-          Submit Guess
+        <button
+          className={STYLES.NumericalQuestion__AnswerButton}
+          onClick={() => handleGuess(guess)}
+        >
+          Guess
         </button>
       </div>
     </div>

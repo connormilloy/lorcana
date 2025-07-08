@@ -1,0 +1,63 @@
+.MultipleChoiceQuestion {
+  &__TextAnswerOptions {
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__AnswerOptions {
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 600px) {
+      flex-wrap: wrap;
+      padding: 0 2rem;
+    }
+  }
+
+  &__AnswerButton {
+    width: 100px;
+    margin: 0 10px;
+    background: rgba(56, 22, 140, 0.5);
+    border-radius: 5px;
+    border: unset;
+    padding: 10px;
+
+    > img {
+      max-width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      width: 80px;
+      margin: 10px;
+      min-height: 87.5px;
+    }
+  }
+
+  &__TextAnswerButton {
+    width: 150px;
+    height: 75px;
+    margin: 0 10px;
+    background: rgba(56, 22, 140, 0.5);
+    border-radius: 5px;
+    border: unset;
+    padding: 10px;
+    color: white;
+    font-size: 1.25rem;
+
+    @media (max-width: 600px) {
+      width: 80%;
+      margin: 10px;
+    }
+
+    @media (max-width: 400px) {
+      height: 50px;
+      margin: 5px;
+      width: 60%;
+    }
+  }
+}

@@ -30,7 +30,7 @@ const Card = ({ card }) => {
   };
 
   return (
-    <div>
+    <div className={STYLES.GameWrapper}>
       <canvas ref={canvasRef} className={STYLES.Card} />
       <QuestionRouter
         handleAnswerQuestion={handleAnswerQuestion}

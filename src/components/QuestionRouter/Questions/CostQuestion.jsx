@@ -1,4 +1,6 @@
-import STYLES from '../QuestionStyles.module.scss';
+import STYLES from './styles/NumericalQuestion.module.scss';
+import GENERIC from './styles/Generic.module.scss';
+
 import { useState } from 'react';
 const CostQuestion = ({ cost, handleAnswerQuestion }) => {
   const [guess, setGuess] = useState(0);
@@ -8,18 +10,21 @@ const CostQuestion = ({ cost, handleAnswerQuestion }) => {
   };
 
   return (
-    <div className={STYLES.CostQuestion}>
-      <h2>What is the cost of this card?</h2>
+    <div className={STYLES.NumericalQuestion}>
+      <h2 className={GENERIC.Question}>
+        What's the <span className={GENERIC.Highlight}>ink cost</span> of this
+        card?
+      </h2>
       <div className="AnswerOptions">
         <input
           type="number"
           value={guess}
           onChange={(e) => setGuess(Number(e.target.value))}
-          className={STYLES.AnswerInput}
+          className={STYLES.NumericalQuestion__AnswerInput}
           placeholder="Enter your guess"
         />
         <button
-          className={STYLES.AnswerButton}
+          className={STYLES.NumericalQuestion__AnswerButton}
           onClick={() => handleGuess(guess)}
         >
           Submit Guess

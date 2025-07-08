@@ -9,15 +9,7 @@ export const obscureRegions = {
 };
 
 export const validQuestionsPerCardType = {
-  action: ['inkCost', 'colors', 'rarity', 'inkable'],
-  character: [
-    'inkCost',
-    'colors',
-    'rarity',
-    'subtypes',
-    'lore',
-    'stats',
-    'inkable',
-  ],
-  item: ['inkCost', 'colors', 'rarity', 'inkable'],
+  action: ['inkCost', 'rarity', 'inkable'],
+  character: ['inkCost', 'rarity', 'subtypes', 'lore', 'stats', 'inkable'],
+  item: ['inkCost', 'rarity', 'inkable'],
 };

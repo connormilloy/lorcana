@@ -1,4 +1,5 @@
-import STYLES from '../QuestionStyles.module.scss';
+import STYLES from './styles/MultipleChoiceQuestion.module.scss';
+import GENERIC from './styles/Generic.module.scss';
 
 const SubtypesQuestion = ({ subtypes, handleAnswerQuestion }) => {
   const handleGuess = (guess) => {
@@ -7,23 +8,27 @@ const SubtypesQuestion = ({ subtypes, handleAnswerQuestion }) => {
   };
 
   return (
-    <div className={STYLES.SubtypesQuestion}>
-      <h2>Storyborn, Floodborn or Dreamborn?</h2>
-      <div className={STYLES.AnswerOptions}>
+    <div className={STYLES.MultipleChoiceQuestion}>
+      <h2>
+        <span className={GENERIC.Highlight}>Storyborn</span>,{' '}
+        <span className={GENERIC.Highlight}>Floodborn</span> or{' '}
+        <span className={GENERIC.Highlight}>Dreamborn</span>?
+      </h2>
+      <div className={STYLES.MultipleChoiceQuestion__TextAnswerOptions}>
         <button
-          className={STYLES.AnswerButton}
+          className={STYLES.MultipleChoiceQuestion__TextAnswerButton}
           onClick={() => handleGuess('storyborn')}
         >
           Storyborn
         </button>
         <button
-          className={STYLES.AnswerButton}
+          className={STYLES.MultipleChoiceQuestion__TextAnswerButton}
           onClick={() => handleGuess('floodborn')}
         >
           Floodborn
         </button>
         <button
-          className={STYLES.AnswerButton}
+          className={STYLES.MultipleChoiceQuestion__TextAnswerButton}
           onClick={() => handleGuess('dreamborn')}
         >
           Dreamborn

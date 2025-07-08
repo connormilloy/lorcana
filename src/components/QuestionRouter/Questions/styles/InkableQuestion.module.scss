@@ -1,0 +1,28 @@
+.InkableQuestion {
+  &__AnswerOptions {
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 600px) {
+      flex-wrap: wrap;
+      padding: 0 2rem;
+    }
+  }
+
+  &__AnswerButton {
+    width: 100px;
+    margin: 0 10px;
+    background: rgba(56, 22, 140, 0.5);
+    border-radius: 5px;
+    border: unset;
+    padding: 10px;
+
+    font-size: 3rem;
+
+    @media (max-width: 600px) {
+      width: 80px;
+      margin: 10px;
+      min-height: 87.5px;
+    }
+  }
+}

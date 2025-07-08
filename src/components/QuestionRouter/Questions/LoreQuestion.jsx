@@ -1,4 +1,5 @@
-import STYLES from '../QuestionStyles.module.scss';
+import STYLES from './styles/NumericalQuestion.module.scss';
+import GENERIC from './styles/Generic.module.scss';
 import { useState } from 'react';
 
 const LoreQuestion = ({ lore, handleAnswerQuestion }) => {
@@ -9,18 +10,21 @@ const LoreQuestion = ({ lore, handleAnswerQuestion }) => {
   };
 
   return (
-    <div className={STYLES.LoreQuestion}>
-      <h2>How much lore does this card quest for?</h2>
-      <div className="AnswerOptions">
+    <div className={STYLES.NumericalQuestion}>
+      <h2>
+        How much <span className={GENERIC.Highlight}>lore</span> does this quest
+        for?
+      </h2>
+      <div className={STYLES.NumericalQuestion__AnswerOptions}>
         <input
           type="number"
           value={guess}
           onChange={(e) => setGuess(Number(e.target.value))}
-          className={STYLES.AnswerInput}
+          className={STYLES.NumericalQuestion__AnswerInput}
           placeholder="Enter lore guess"
         />
         <button
-          className={STYLES.AnswerButton}
+          className={STYLES.NumericalQuestion__AnswerButton}
           onClick={() => handleGuess(guess)}
         >
           Submit Guess
