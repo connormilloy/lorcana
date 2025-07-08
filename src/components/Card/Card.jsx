@@ -7,6 +7,8 @@ import {
 } from '../../utils/constants';
 import QuestionRouter from '../QuestionRouter';
 
+import { createDelay } from '../../utils/functions';
+
 const Card = ({ card, handleCorrectAnswer, handleIncorrectAnswer }) => {
   const [revealed, setRevealed] = useState(false);
   const validQuestions =
@@ -20,23 +22,30 @@ const Card = ({ card, handleCorrectAnswer, handleIncorrectAnswer }) => {
     region: obscureRegions[question],
   });
 
+  const revealCard = () => {
+    setRevealed(true);
+  };
+
   const handleAnswerQuestion = (isCorrect) => {
     if (isCorrect) {
-      handleCorrectAnswer();
+      revealCard();
+      createDelay(1500).then(() => handleCorrectAnswer());
     } else {
-      handleIncorrectAnswer();
+      revealCard();
+      createDelay(1500).then(() => handleIncorrectAnswer());
     }
-    setRevealed(true); // Reveal card after answering
   };
 
   return (
     <div className={STYLES.GameWrapper}>
       <canvas ref={canvasRef} className={STYLES.Card} />
-      <QuestionRouter
-        handleAnswerQuestion={handleAnswerQuestion}
-        questionType={question}
-        card={card}
-      />
+      {!revealed && (
+        <QuestionRouter
+          handleAnswerQuestion={handleAnswerQuestion}
+          questionType={question}
+          card={card}
+        />
+      )}
     </div>
   );
 };
