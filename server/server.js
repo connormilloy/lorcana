@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000;
 const { MongoClient } = require('mongodb');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+const pipeline = require('stream');
 
 let db;
 
@@ -48,21 +49,40 @@ app.get('/lorcana/random-card', rateLimiter, async (req, res) => {
 
 app.get('/lorcana/image-proxy', rateLimiter, async (req, res) => {
   const { url } = req.query;
-  if (!url) return res.status(400).send('Missing image URL');
+  if (!url) {
+    console.warn('Missing image URL');
+    return res.status(400).send('Missing image URL');
+  }
 
   try {
-    const response = await fetch(url);
+    const upstreamRes = await fetch(url);
 
-    if (!response.ok)
+    if (!upstreamRes.ok) {
+      console.error(
+        `Failed to fetch image from source: ${upstreamRes.status} ${upstreamRes.statusText}`
+      );
       return res.status(502).send('Failed to fetch image from source');
+    }
 
-    const contentType =
-      response.headers.get('content-type') || 'application/octet-stream';
-    res.set('Content-Type', contentType);
-    res.set('Access-Control-Allow-Origin', '*');
+    if (!upstreamRes.body) {
+      console.error('Response body is null or undefined');
+      return res.status(502).send('Invalid image response');
+    }
 
-    response.body.pipe(res);
+    res.setHeader(
+      'Content-Type',
+      upstreamRes.headers.get('content-type') || 'application/octet-stream'
+    );
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    pipeline(upstreamRes.body, res, (err) => {
+      if (err) {
+        console.error('Pipeline failed:', err);
+        res.status(500).send('Streaming error');
+      }
+    });
   } catch (err) {
-    res.status(500).send('Image fetch failed');
+    console.error('Unexpected error in image proxy:', err);
+    res.status(500).send('Unexpected server error');
   }
 });
