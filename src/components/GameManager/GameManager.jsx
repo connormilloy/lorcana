@@ -14,7 +14,7 @@ const GameManager = ({ onGameOver }) => {
   const handleCorrectAnswer = () => {
     setScore((prev) => prev + 1);
     setShowCorrect(true);
-    createDelay(1000).then(() => {
+    createDelay(1500).then(() => {
       refetch();
       setShowCorrect(false);
     });
