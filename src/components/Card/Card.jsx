@@ -1,6 +1,6 @@
 import STYLES from './Card.module.scss';
 import useCardCanvas from '../../hooks/useCardCanvas';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   obscureRegions,
   validQuestionsPerCardType,
@@ -11,8 +11,9 @@ const Card = ({ card }) => {
   const [revealed, setRevealed] = useState(false);
   const validQuestions =
     validQuestionsPerCardType[card.type.toLowerCase()] || [];
-  const question =
-    validQuestions[Math.floor(Math.random() * validQuestions.length)];
+  const question = useMemo(() => {
+    return validQuestions[Math.floor(Math.random() * validQuestions.length)];
+  }, [card]);
 
   const canvasRef = useCardCanvas(card, {
     obscure: !revealed, // initially obscured
