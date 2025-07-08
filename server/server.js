@@ -6,8 +6,7 @@ const port = process.env.PORT || 3000;
 const { MongoClient } = require('mongodb');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
-const pipeline = require('stream');
-
+const { pipeline } = require('stream');
 let db;
 
 MongoClient.connect(process.env.DB_CONNECTION_STRING)
