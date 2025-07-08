@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import Homepage from './components/Homepage';
 import GameManager from './components/GameManager';
+import GameOverScreen from './components/GameOverScreen';
 
 const App = () => {
   const [shouldShowHomepage, setShouldShowHomepage] = useState(true);
@@ -31,9 +32,7 @@ const App = () => {
   if (shouldShowGameOver) {
     return (
       <div className={STYLES.App}>
-        <h1>Game Over</h1>
-        <p>Your score: {finalScore}</p>
-        <button onClick={startGame}>Play Again</button>
+        <GameOverScreen score={finalScore} onRestart={startGame} />
       </div>
     );
   }

@@ -1,6 +1,6 @@
-.CorrectScreen {
+.GameOverScreen {
   > h1 {
-    color: forestgreen;
+    color: red;
     font-size: 4rem;
     margin: 2rem auto;
   }
@@ -8,6 +8,13 @@
   > p {
     font-size: 2rem;
     margin: 2rem auto;
+  }
+
+  > button {
+    font-size: 2rem;
+    padding: 1rem;
+    color: white;
+    background: rgba(56, 22, 140, 0.5);
   }
 
   @media (min-width: 640px) {

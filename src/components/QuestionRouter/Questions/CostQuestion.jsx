@@ -2,11 +2,10 @@ import STYLES from './styles/NumericalQuestion.module.scss';
 import GENERIC from './styles/Generic.module.scss';
 
 import { useState } from 'react';
-const CostQuestion = ({ cost, handleAnswerQuestion }) => {
-  console.log(cost);
+const CostQuestion = ({ inkCost, handleAnswerQuestion }) => {
   const [guess, setGuess] = useState(0);
   const handleGuess = (guess) => {
-    const isCorrect = guess === cost;
+    const isCorrect = guess === inkCost;
     handleAnswerQuestion(isCorrect);
   };
 

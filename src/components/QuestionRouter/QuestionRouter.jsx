@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import STYLES from './QuestionStyles.module.scss';
 import RarityQuestion from './Questions/RarityQuestion';
 import CostQuestion from './Questions/CostQuestion';
@@ -17,7 +17,6 @@ const questionComponents = {
 };
 
 const QuestionRouter = ({ card, handleAnswerQuestion, questionType }) => {
-  console.log(questionType);
   const QuestionComponent = useMemo(
     () => questionComponents[questionType],
     [questionType]

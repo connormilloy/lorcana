@@ -1,9 +1,9 @@
 import STYLES from './CorrectScreen.module.scss';
-const CorrectScreen = ({ score }) => {
+const CorrectScreen = () => {
   return (
     <div className={STYLES.CorrectScreen}>
       <h1>Correct!</h1>
-      <p>Well done! You got it right.</p>
+      <p>Nice one! Fetching a new card...</p>
     </div>
   );
 };
