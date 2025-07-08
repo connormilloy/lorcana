@@ -6,9 +6,11 @@ const useCardCanvas = (card, { obscure = false, region = {} } = {}) => {
   useEffect(() => {
     if (!card?.image || !canvasRef.current) return;
 
+    const imageUrl = `https://milloy.dev/api/lorcana/image-proxy?url=${encodeURIComponent(card.image)}`;
+
     const img = new Image();
     img.crossOrigin = 'anonymous';
-    img.src = card.image;
+    img.src = imageUrl;
 
     img.onload = () => {
       const canvas = canvasRef.current;

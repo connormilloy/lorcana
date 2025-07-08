@@ -45,3 +45,20 @@ app.get('/lorcana/random-card', rateLimiter, async (req, res) => {
     res.status(500).json({ error: 'Internal server error.' });
   }
 });
+
+app.get('/lorcana/image-proxy', rateLimiter, async (req, res) => {
+  const { url } = req.query;
+  if (!url) return res.status(400).send('Missing image URL');
+
+  try {
+    const response = await fetch(url);
+    const contentType = response.headers.get('content-type');
+    const buffer = await response.arrayBuffer();
+
+    res.set('Content-Type', contentType);
+    res.set('Access-Control-Allow-Origin', '*'); // optional if canvas needed on frontend
+    res.send(Buffer.from(buffer));
+  } catch (err) {
+    res.status(500).send('Image fetch failed');
+  }
+});
