@@ -1,25 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import useRandomCard from './hooks/useRandomCard';
+import Card from './components/Card';
 
-function App() {
+const App = () => {
+  const { card, loading, error } = useRandomCard();
+  if (loading) return <div className="App">Loading...</div>;
+
+  console.log(card);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Card card={card} />
     </div>
   );
-}
+};
 
 export default App;
