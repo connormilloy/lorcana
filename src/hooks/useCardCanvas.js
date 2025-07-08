@@ -15,11 +15,24 @@ const useCardCanvas = (card, { obscure = false, region = {} } = {}) => {
     img.onload = () => {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // clear previous render
-      ctx.drawImage(img, 0, 0);
+      const dpr = window.devicePixelRatio || 1;
+      const displayWidth = 350;
+      const aspectRatio = img.height / img.width;
+
+      // Set CSS size
+      canvas.style.width = `${displayWidth}px`;
+      canvas.style.height = `${displayWidth * aspectRatio}px`;
+
+      // Set actual pixel resolution scaled by device pixel ratio
+      canvas.width = displayWidth * dpr;
+      canvas.height = displayWidth * aspectRatio * dpr;
+
+      // Scale the drawing context to match
+      ctx.scale(dpr, dpr);
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, displayWidth, displayWidth * aspectRatio);
 
       if (obscure) {
         const { x, y, width, height } = region;
