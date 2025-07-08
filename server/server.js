@@ -33,7 +33,7 @@ const rateLimiter = rateLimit({
 
 app.use(cors());
 
-app.get('/lorcana/random-card', rateLimiter, async (req, res) => {
+app.get('/lorcana/random-card', async (req, res) => {
   try {
     const card = await db
       .collection('lorcana-cards')
@@ -46,7 +46,7 @@ app.get('/lorcana/random-card', rateLimiter, async (req, res) => {
   }
 });
 
-app.get('/lorcana/image-proxy', rateLimiter, async (req, res) => {
+app.get('/lorcana/image-proxy', async (req, res) => {
   const { url } = req.query;
   if (!url) {
     console.warn('Missing image URL');
