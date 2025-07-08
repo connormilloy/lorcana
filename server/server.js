@@ -61,7 +61,7 @@ app.get('/lorcana/image-proxy', rateLimiter, async (req, res) => {
     res.set('Content-Type', contentType);
     res.set('Access-Control-Allow-Origin', '*');
 
-    res.body.pipe(res);
+    response.body.pipe(res);
   } catch (err) {
     res.status(500).send('Image fetch failed');
   }
