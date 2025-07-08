@@ -52,12 +52,16 @@ app.get('/lorcana/image-proxy', rateLimiter, async (req, res) => {
 
   try {
     const response = await fetch(url);
-    const contentType = response.headers.get('content-type');
-    const buffer = await response.arrayBuffer();
 
+    if (!response.ok)
+      return res.status(502).send('Failed to fetch image from source');
+
+    const contentType =
+      response.headers.get('content-type') || 'application/octet-stream';
     res.set('Content-Type', contentType);
-    res.set('Access-Control-Allow-Origin', '*'); // optional if canvas needed on frontend
-    res.send(Buffer.from(buffer));
+    res.set('Access-Control-Allow-Origin', '*');
+
+    res.body.pipe(res);
   } catch (err) {
     res.status(500).send('Image fetch failed');
   }
