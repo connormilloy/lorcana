@@ -3,6 +3,7 @@ import GENERIC from './styles/Generic.module.scss';
 
 import { useState } from 'react';
 const CostQuestion = ({ cost, handleAnswerQuestion }) => {
+  console.log(cost);
   const [guess, setGuess] = useState(0);
   const handleGuess = (guess) => {
     const isCorrect = guess === cost;

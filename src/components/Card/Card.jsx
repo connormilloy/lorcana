@@ -7,7 +7,7 @@ import {
 } from '../../utils/constants';
 import QuestionRouter from '../QuestionRouter';
 
-const Card = ({ card }) => {
+const Card = ({ card, handleCorrectAnswer, handleIncorrectAnswer }) => {
   const [revealed, setRevealed] = useState(false);
   const validQuestions =
     validQuestionsPerCardType[card.type.toLowerCase()] || [];
@@ -22,9 +22,9 @@ const Card = ({ card }) => {
 
   const handleAnswerQuestion = (isCorrect) => {
     if (isCorrect) {
-      alert('Nice job! You guessed correctly!');
+      handleCorrectAnswer();
     } else {
-      alert(`Nope!`);
+      handleIncorrectAnswer();
     }
     setRevealed(true); // Reveal card after answering
   };

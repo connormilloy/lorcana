@@ -1,43 +1,46 @@
 import STYLES from './App.module.scss';
-import useRandomCard from './hooks/useRandomCard';
 import { useState } from 'react';
 
 import Homepage from './components/Homepage';
-import Card from './components/Card';
+import GameManager from './components/GameManager';
 
 const App = () => {
   const [shouldShowHomepage, setShouldShowHomepage] = useState(true);
-  const [gameActive, setGameActive] = useState(false);
-  const { card, loading, error } = useRandomCard();
+  const [shouldShowGameOver, setShouldShowGameOver] = useState(false);
+  const [finalScore, setFinalScore] = useState(0);
+
+  const startGame = () => {
+    setShouldShowHomepage(false);
+    setShouldShowGameOver(false);
+    setFinalScore(0);
+  };
+
+  const endGame = (score) => {
+    setFinalScore(score);
+    setShouldShowGameOver(true);
+  };
 
   if (shouldShowHomepage) {
     return (
       <div className={STYLES.App}>
-        <Homepage onClickStart={() => setShouldShowHomepage(false)} />;
+        <Homepage onClickStart={startGame} />
       </div>
     );
   }
 
-  if (loading)
+  if (shouldShowGameOver) {
     return (
       <div className={STYLES.App}>
-        <div className={STYLES.SpinnerContainer}>
-          <div className={STYLES.SpinnerContainer__Spinner} />
-        </div>
-      </div>
-    );
-
-  if (error) {
-    return (
-      <div className={STYLES.App}>
-        <h1>Something went wrong :(</h1>
+        <h1>Game Over</h1>
+        <p>Your score: {finalScore}</p>
+        <button onClick={startGame}>Play Again</button>
       </div>
     );
   }
 
   return (
     <div className={STYLES.App}>
-      <Card card={card} />
+      <GameManager onGameOver={endGame} />
     </div>
   );
 };
