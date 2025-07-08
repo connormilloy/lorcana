@@ -15,7 +15,7 @@ const RarityQuestion = ({ rarity, handleAnswerQuestion }) => {
 
   return (
     <div className={STYLES.MultipleChoiceQuestion}>
-      <h2>
+      <h2 className={GENERIC.Question}>
         What's the <span className={GENERIC.Highlight}>rarity</span> of this
         card?
       </h2>

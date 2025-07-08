@@ -8,7 +8,7 @@ const InkableQuestion = ({ inkable, handleAnswerQuestion }) => {
 
   return (
     <div className={STYLES.InkableQuestion}>
-      <h2>
+      <h2 className={GENERIC.Question}>
         Is this card <span className={GENERIC.Highlight}>inkable</span>?
       </h2>
       <div className={STYLES.InkableQuestion__AnswerOptions}>

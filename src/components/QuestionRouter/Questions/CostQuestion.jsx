@@ -11,7 +11,7 @@ const CostQuestion = ({ cost, handleAnswerQuestion }) => {
 
   return (
     <div className={STYLES.NumericalQuestion}>
-      <h2>
+      <h2 className={GENERIC.Question}>
         What's the <span className={GENERIC.Highlight}>ink cost</span> of this
         card?
       </h2>

@@ -18,7 +18,7 @@ const StatsQuestion = ({ stats, handleAnswerQuestion }) => {
 
   return (
     <div className={STYLES.NumericalQuestion}>
-      <h2>
+      <h2 className={GENERIC.Question}>
         What's the <span className={GENERIC.Highlight}>{statType}</span> of this
         card?
       </h2>

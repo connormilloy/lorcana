@@ -1,13 +1,4 @@
 .MultipleChoiceQuestion {
-
-  > h2 {
-    @media (max-width: 375px) {
-      font-size: 1rem;
-      width: 90%;
-      margin: 1rem auto;
-    }
-  }
-
   &__TextAnswerOptions {
     display: flex;
     justify-content: center;

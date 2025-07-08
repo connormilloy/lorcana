@@ -11,13 +11,13 @@ const LoreQuestion = ({ lore, handleAnswerQuestion }) => {
 
   return (
     <div className={STYLES.NumericalQuestion}>
-      <h2>
+      <h2 className={GENERIC.Question}>
         How much <span className={GENERIC.Highlight}>lore</span> does this quest
         for?
       </h2>
       <div className={STYLES.NumericalQuestion__AnswerOptions}>
         <input
-          type="number"
+          type="text"
           value={guess}
           onChange={(e) => setGuess(Number(e.target.value))}
           className={STYLES.NumericalQuestion__AnswerInput}
@@ -27,7 +27,7 @@ const LoreQuestion = ({ lore, handleAnswerQuestion }) => {
           className={STYLES.NumericalQuestion__AnswerButton}
           onClick={() => handleGuess(guess)}
         >
-          Submit Guess
+          Guess
         </button>
       </div>
     </div>

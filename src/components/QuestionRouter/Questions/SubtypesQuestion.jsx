@@ -9,7 +9,7 @@ const SubtypesQuestion = ({ subtypes, handleAnswerQuestion }) => {
 
   return (
     <div className={STYLES.MultipleChoiceQuestion}>
-      <h2>
+      <h2 className={GENERIC.Question}>
         <span className={GENERIC.Highlight}>Storyborn</span>,{' '}
         <span className={GENERIC.Highlight}>Floodborn</span> or{' '}
         <span className={GENERIC.Highlight}>Dreamborn</span>?
