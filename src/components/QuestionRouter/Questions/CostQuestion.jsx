@@ -17,7 +17,7 @@ const CostQuestion = ({ cost, handleAnswerQuestion }) => {
       </h2>
       <div className={STYLES.NumericalQuestion__AnswerOptions}>
         <input
-          type="number"
+          type="text"
           value={guess}
           onChange={(e) => setGuess(Number(e.target.value))}
           className={STYLES.NumericalQuestion__AnswerInput}
@@ -27,7 +27,7 @@ const CostQuestion = ({ cost, handleAnswerQuestion }) => {
           className={STYLES.NumericalQuestion__AnswerButton}
           onClick={() => handleGuess(guess)}
         >
-          Submit Guess
+          Guess
         </button>
       </div>
     </div>
