@@ -11,11 +11,11 @@ const CostQuestion = ({ cost, handleAnswerQuestion }) => {
 
   return (
     <div className={STYLES.NumericalQuestion}>
-      <h2 className={GENERIC.Question}>
+      <h2>
         What's the <span className={GENERIC.Highlight}>ink cost</span> of this
         card?
       </h2>
-      <div className="AnswerOptions">
+      <div className={STYLES.NumericalQuestion__AnswerOptions}>
         <input
           type="number"
           value={guess}
