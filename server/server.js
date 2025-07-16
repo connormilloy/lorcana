@@ -38,7 +38,7 @@ const relaxedRateLimiter = rateLimit({
 });
 
 const strictRateLimiter = rateLimit({
-  windowMs: 1000,
+  windowMs: 3000,
   max: 1,
   message: {
     error: 'Too many requests, please wait before trying again.',
