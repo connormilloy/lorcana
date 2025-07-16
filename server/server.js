@@ -7,6 +7,10 @@ const { MongoClient } = require('mongodb');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const { pipeline } = require('stream');
+
+const fs = require('fs');
+const path = require('path');
+
 let db;
 
 MongoClient.connect(process.env.DB_CONNECTION_STRING)
@@ -23,7 +27,7 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING)
 
 app.set('trust proxy', true);
 
-const rateLimiter = rateLimit({
+const relaxedRateLimiter = rateLimit({
   windowMs: 2000,
   max: 5,
   message: {
@@ -33,9 +37,39 @@ const rateLimiter = rateLimit({
   legacyHeaders: false,
 });
 
+const strictRateLimiter = rateLimit({
+  windowMs: 1000,
+  max: 1,
+  message: {
+    error: 'Too many requests, please wait before trying again.',
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 app.use(cors());
 
-app.get('/lorcana/random-card', rateLimiter, async (req, res) => {
+// TODO: Refactor this. Whole thing should be split out into an independent backend with routes.
+app.get('/lorcana/set-champs', strictRateLimiter, async (req, res) => {
+  try {
+    const data = fs.readFileSync(
+      path.join(__dirname, 'utils', 'events.json'),
+      'utf-8'
+    );
+    const events = JSON.parse(data);
+
+    if (!events || events.length === 0) {
+      return res.status(404).json({ error: 'No events found.' });
+    }
+
+    res.json(events);
+  } catch (err) {
+    console.error('Failed to fetch set champs data:', err);
+    res.status(500).json({ error: 'Internal server error.' });
+  }
+});
+
+app.get('/lorcana/random-card', relaxedRateLimiter, async (req, res) => {
   try {
     const card = await db
       .collection('lorcana-cards')
@@ -48,7 +82,7 @@ app.get('/lorcana/random-card', rateLimiter, async (req, res) => {
   }
 });
 
-app.get('/lorcana/image-proxy', rateLimiter, async (req, res) => {
+app.get('/lorcana/image-proxy', relaxedRateLimiter, async (req, res) => {
   const { url } = req.query;
   if (!url) {
     console.warn('Missing image URL');
