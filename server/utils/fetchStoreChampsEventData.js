@@ -34,10 +34,8 @@ const formatEventsData = (data) => {
       eventUrl: `https://tcg.ravensburgerplay.com/events/${event.id}`,
       registeredPlayerCount: event.registered_user_count,
       maxPlayerCount: event.capacity,
-      coordinates: {
-        latitude: event.latitude,
-        longitude: event.longitude,
-      },
+      latitude: event.latitude,
+      longitude: event.longitude,
     };
   });
 };
