@@ -6,7 +6,7 @@ const fetchRawEventsData = async () => {
   let allResults = [];
   let hasNextPage = true;
 
-  while (hasNextPage && page < 10) {
+  while (hasNextPage) {
     const response = await fetch(
       `https://api.ravensburgerplay.com/api/v2/events?name=set%20champ&event_status=upcoming&game-slug=disney-lorcana&page_size=100&page=${page}`
     );
