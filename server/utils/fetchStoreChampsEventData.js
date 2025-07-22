@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { logWithTimestamp } = require('./logWithTimestamp');
 
 const fetchRawEventsData = async () => {
   let page = 1;
@@ -42,20 +43,18 @@ const formatEventsData = (data) => {
 
 (async () => {
   try {
-    console.log('Fetching raw events data...');
+    logWithTimestamp('Starting refresh events script!');
     const rawEventsData = await fetchRawEventsData();
 
-    console.log('Got raw events data, now formatting...');
     const formattedEventsData = formatEventsData(rawEventsData.flat(Infinity));
 
-    console.log('Got formatted data, writing to file...');
     fs.writeFileSync(
       path.join(__dirname, 'events.json'),
       JSON.stringify(formattedEventsData, null, 2)
     );
 
-    console.log('✅ Data written to parsed_events.json');
+    logWithTimestamp('Finished running refresh events script!');
   } catch (err) {
-    console.error('❌ Failed to process events data:', err);
+    logWithTimestamp('Refresh events script failed to run successfully:', err);
   }
 })();
