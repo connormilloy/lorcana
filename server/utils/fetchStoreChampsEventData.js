@@ -26,19 +26,22 @@ const fetchRawEventsData = async (searchString) => {
 };
 
 const formatEventsData = (data) => {
-  return data.map((event) => {
-    return {
-      name: event.name,
-      datetime: new Date(event.start_datetime).toISOString(),
-      address: event.full_address,
-      shopName: event.store.name,
-      eventUrl: `https://tcg.ravensburgerplay.com/events/${event.id}`,
-      registeredPlayerCount: event.registered_user_count,
-      maxPlayerCount: event.capacity,
-      latitude: event.latitude,
-      longitude: event.longitude,
-    };
-  });
+  const now = new Date();
+  return data
+    .filter((event) => new Date(event.start_datetime) >= now)
+    .map((event) => {
+      return {
+        name: event.name,
+        datetime: new Date(event.start_datetime).toISOString(),
+        address: event.full_address,
+        shopName: event.store.name,
+        eventUrl: `https://tcg.ravensburgerplay.com/events/${event.id}`,
+        registeredPlayerCount: event.registered_user_count,
+        maxPlayerCount: event.capacity,
+        latitude: event.latitude,
+        longitude: event.longitude,
+      };
+    });
 };
 
 (async () => {
