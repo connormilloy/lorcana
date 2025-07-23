@@ -2,14 +2,14 @@ const fs = require('fs');
 const path = require('path');
 const { logWithTimestamp } = require('./logWithTimestamp');
 
-const fetchRawEventsData = async () => {
+const fetchRawEventsData = async (searchString) => {
   let page = 1;
   let allResults = [];
   let hasNextPage = true;
 
   while (hasNextPage) {
     const response = await fetch(
-      `https://api.ravensburgerplay.com/api/v2/events?name=set%20champ&event_status=upcoming|scheduled&game-slug=disney-lorcana&page_size=100&page=${page}`
+      `https://api.ravensburgerplay.com/api/v2/events?name=${searchString}&event_status=scheduled&game-slug=disney-lorcana&page_size=100&page=${page}`
     );
     const json = await response.json();
 
@@ -44,9 +44,16 @@ const formatEventsData = (data) => {
 (async () => {
   try {
     logWithTimestamp('Starting refresh events script!');
-    const rawEventsData = await fetchRawEventsData();
 
-    const formattedEventsData = formatEventsData(rawEventsData.flat(Infinity));
+    console.log('Looking for events named set championship...');
+    const setChampsData = await fetchRawEventsData('set%20champ');
+
+    console.log('Looking for events named store championship...');
+    const storeChampsData = await fetchRawEventsData('store%20champ');
+    const formattedEventsData = formatEventsData([
+      ...setChampsData.flat(Infinity),
+      ...storeChampsData.flat(Infinity),
+    ]);
 
     fs.writeFileSync(
       path.join(__dirname, 'events.json'),
