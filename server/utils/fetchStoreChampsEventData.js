@@ -9,7 +9,7 @@ const fetchRawEventsData = async () => {
 
   while (hasNextPage) {
     const response = await fetch(
-      `https://api.ravensburgerplay.com/api/v2/events?name=set%20champ&event_status=upcoming&game-slug=disney-lorcana&page_size=100&page=${page}`
+      `https://api.ravensburgerplay.com/api/v2/events?name=set%20champ&event_status=upcoming|scheduled&game-slug=disney-lorcana&page_size=100&page=${page}`
     );
     const json = await response.json();
 
